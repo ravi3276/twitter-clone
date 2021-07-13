@@ -1,0 +1,32 @@
+.widgets{
+    flex:0.3;
+}
+
+.widgets__input{
+    background-color: var( --twitter-background);
+    border-radius: 999px;
+    margin:10px;
+    display:flex;
+    align-items:center;
+    padding:5px;
+}
+
+.widgets__input>input{
+    border: 0;
+    background-color: var( --twitter-background);
+    outline:none;
+}
+
+.widgets__widgetContainer{
+    margin-top:15px ;
+    margin-left: 15px;
+    padding:10px;
+    background-color: #f5f8fa;
+    border-radius:20px;
+}
+
+.widgets__widgetContainer > h2{
+    font-weight: 800;
+    font-size:18px;
+    font-family: arial,sans-serif;
+}
