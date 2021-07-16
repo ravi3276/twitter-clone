@@ -1,10 +1,19 @@
-import { Avatar } from '@material-ui/core'
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import './Feed.css'
 import Post from './Post'
 import TweetBox from './TweetBox'
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import db from './firebase';
+import FlipMove from 'react-flip-move';
+
 function Feed() {
+    const [posts,setPosts]=useState([]);
+
+    useEffect(() => {
+       db.collection('posts').onSnapshot(snapshot =>(
+           setPosts(snapshot.docs.map(doc=>doc.data()))
+       ))
+    }, [])
+    
     return (
         <div className="feed">
             <div className="feed__header">
@@ -12,16 +21,23 @@ function Feed() {
             </div>
 
            <TweetBox />
+            <FlipMove>
+           {
+               posts.map(post =>(
+                <Post 
+                key={post.msg}
+                avatar={post.avatar}
+                displayName={post.displayName} 
+                userName={post.userName}
+                msg={post.msg}
+                image={post.image}
+                verified={post.verified}
+                // timestamp={new Date()}
+                />
+               ))
+           }
 
-           <Post 
-           Avatar={Avatar}
-           displayName="raviteja3276" 
-           userName="ravi27"
-           msg="hkafuahdjsbdajhgfudhasjdafgasdajsgfaushdakfau"
-            image=""
-            timestamp="13h ago"
-            VerifiedUserIcon={VerifiedUserIcon}
-           />
+            </FlipMove>
         </div>
     )
 }

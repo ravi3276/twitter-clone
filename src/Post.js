@@ -1,15 +1,17 @@
-import React from 'react'
+import React,{forwardRef} from 'react'
+import { Avatar } from '@material-ui/core'
 import './Post.css';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublicIcon from '@material-ui/icons/Public';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 
-function Post({Avatar,displayName,userName,image,timestamp,msg,VerifiedUserIcon}) {
+const Post=forwardRef(({avatar,verified,displayName,userName,image,msg},ref)=> {
     return (
-        <div className="post">
+        <div className="post" ref={ref}>
             <div className="post__avatar">
-            <Avatar src={"https://images.pexels.com/photos/8647586/pexels-photo-8647586.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"}/>
+            <Avatar src={avatar}/>
             </div>
 
             <div className="post__body">
@@ -17,7 +19,12 @@ function Post({Avatar,displayName,userName,image,timestamp,msg,VerifiedUserIcon}
                     <div className="post__headertxt">
                     <h3>
                         {displayName} {" "}
-                        <span className="post__headerSpecial"><VerifiedUserIcon className="badge"/> @{userName}</span> 
+                        <span className="post__headerSpecial">
+                            {
+                                verified && <VerifiedUserIcon className="badge"/>
+                            }
+                             @{userName}
+                             </span> 
                     </h3>
                    
                     </div>
@@ -26,7 +33,7 @@ function Post({Avatar,displayName,userName,image,timestamp,msg,VerifiedUserIcon}
                         <p>{msg}</p>
                     </div>
                 </div>
-                {/* <img src="https://images.pexels.com/photos/8647586/pexels-photo-8647586.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" /> */}
+                <img src={image} alt="" />
               
               <div className="footer">
                   <ChatBubbleOutlineIcon fontSize="small"/>
@@ -38,6 +45,6 @@ function Post({Avatar,displayName,userName,image,timestamp,msg,VerifiedUserIcon}
             </div>
         </div>
     )
-}
+})
 
 export default Post
